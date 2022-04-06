@@ -43,36 +43,43 @@ class ShipBoard(Board):
 
     def place_ships(self):
         for ship in self.ships:
+            self.render()
             while ship.has_invalid_coords:
                 ship.set_coordinates()
                 self.validate_ship_coordinates(ship)
                 if not ship.has_invalid_coords:
                     self.add_ships_to_board()
-                    self.render()
-
-    def add_ships_to_board(self):
-        for ship in self.ships:
-            for coord in ship.coordinates:
-                self.board[coord[0]][coord[1]] = '[ ]'
 
     def validate_ship_coordinates(self, ship):
         
         within_board = all(coord[0] in range(self.area) and coord[1] in range(self.area) for coord in ship.coordinates)
 
-        # Correct number of coordinates
         if not ship.has_valid_number_of_coordinates():
             print('Invalid number of coordinates. Please try again')
-
-        # Correct orientation
         elif not ship.has_valid_orientation():
             print('Invalid coordinates: Ships must be oriented vertically or horizontally. Please try again.')
-
-        # Coordinates are inside board area
+        elif not ship.has_consecutive_coordinates():
+            print('Invalid coordinates: Coordinates must be consecutive')
         elif not within_board:
             print('Invalid coordinates: Ship must be placed within area of the board')
-
+        elif self.overlaps_other_ships(ship):
+            print(f'Invalid coordinates: {ship.name} cannot overlap any other ship.')
         # elif not self.doesnt_overlap(ship):
         #     print('Invalid coordinates: Ship cannot overlap coordinates with any other ship')
 
         else:
             ship.has_invalid_coords = False
+
+    def overlaps_other_ships(self, ship):
+        other_ships = [x for x in self.ships if x != ship]
+
+        for coord in ship.coordinates:
+            for other_ship in other_ships:
+                if coord in other_ship.coordinates:
+                    return True
+        return False
+
+    def add_ships_to_board(self):
+        for ship in self.ships:
+            for coord in ship.coordinates:
+                self.board[coord[0]][coord[1]] = '[ ]'

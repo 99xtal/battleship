@@ -36,9 +36,18 @@ class Ship:
     def has_valid_orientation(self):
         has_matching_rows = all(coord[0] == self.coordinates[0][0] for coord in self.coordinates)
         has_matching_cols = all(coord[1] == self.coordinates[0][1] for coord in self.coordinates)
-        if has_matching_rows and has_matching_cols:
+        if not has_matching_rows and not has_matching_cols:
             return False
         return True
+
+    def has_consecutive_coordinates(self):
+        has_consecutive_rows, has_consecutive_cols = True, True
+        for i in range(1,self.length):
+            if self.coordinates[i][0] != self.coordinates[i-1][0] + 1:
+                has_consecutive_rows = False
+            if self.coordinates[i][1] != self.coordinates[i-1][1] + 1:
+                has_consecutive_cols = False
+        return has_consecutive_rows or has_consecutive_cols
             
 class Destroyer(Ship):
     def __init__(self):

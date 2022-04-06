@@ -22,13 +22,6 @@ class Player():
         self.ship_board = ShipBoard(self.name, 20)
         self.guess_board = Board(self.name, 20)
 
-    def doesnt_overlap(self, ship):
-        other_ships = [x for x in self.ships if x != ship]
 
-        for coord in ship.coordinates:
-            for other_ship in other_ships:
-                if coord in other_ship.coordinates:
-                    return False
-        return True
 
 
