@@ -4,13 +4,12 @@ class Game():
     def __init__(self):
         self.players = [Player('Player 1'), Player('Player 2')]
 
-    def player_setup(self):
+    def game_setup(self):
         for player in self.players:
-            player.set_name()
-            player.place_ships()
+            player.initialize()
 
     def run_game(self):
-        self.player_setup()
+        self.game_setup()
 
 
 game = Game()
