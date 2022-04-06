@@ -13,15 +13,15 @@ class Board():
             str += f'{point}|'
         return str
 
-    def get_centered_board_name(self):
+    def center_text_on_board(self, text):
         board_length = 4*self.area + 3
         center_point = board_length/2
+        indent = int(center_point - len(text)/2)
+        return ' ' * indent + text
+
+    def get_centered_board_name(self):
         title = f'{self.player_name.title()}\'s Guesses'
-        title_length = len(title)
-        indent = int(center_point - title_length/2)
-        centered_string = ' ' * indent
-        centered_string += title
-        return centered_string
+        return self.center_text_on_board(title)
 
     def get_column_numbers(self):
         col_num_string = ' '
@@ -50,14 +50,8 @@ class ShipBoard(Board):
         self.place_ships()
 
     def get_centered_board_name(self):
-        board_length = 4*self.area + 3
-        center_point = int(board_length/2)
         title = f'{self.player_name.title()}\'s Ships'
-        title_length = len(title)
-        indent = center_point - int(title_length/2)
-        centered_string = ' ' * indent
-        centered_string += title
-        return centered_string
+        return self.center_text_on_board(title)
 
     def place_ships(self):
         '''Place ships on board and check for invalid coordinates'''
