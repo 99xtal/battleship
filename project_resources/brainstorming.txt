@@ -1,1 +1,24 @@
--Each player places their battleships on their 
+Each player has two boards: one for their ships and opponent guesses, and one for their guesses for opponents board (Ship board) (Guess board)
+
+Game Setup:
+-For each player
+    -Set name
+    -player adds ships to their ship boards
+        For each kind of ship
+            User enters coordinates for each ship
+                -Check that number of coordinates matches length of ship
+                -Check that ship is oriented vertically or horizontally (column number is identical in each coordinate value or row letter is identical in each coordinate value)
+                -Check that ship does not occupy any coordinates already occupied by another ship
+            If input is valid, save coordinates to ship
+            Display ship coordinates on the board
+
+Gameplay:
+
+Player enters a coordinate to target:
+    If input coordinate is a coordinate that belongs to one of the opponent's ships:
+        -Add coordinate to ships list of destroyed segments
+    If opponent's ship's coordinates list matches it's list of destroyed segments:
+        -increase player's number of destroyed ships
+    If opponent's number of destroyed ships = 5:
+        opponent loses
+
