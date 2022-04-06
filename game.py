@@ -6,7 +6,7 @@ class Game():
 
     def game_setup(self):
         for player in self.players:
-            player.initialize()
+            player.initial_setup()
 
     def run_game(self):
         self.game_setup()

@@ -7,8 +7,7 @@ class Player():
         self.ship_board = None
         self.guess_board = None
 
-
-    def initialize(self):
+    def initial_setup(self):
         self.set_name()
         self.initialize_boards()
         self.ship_board.place_ships()

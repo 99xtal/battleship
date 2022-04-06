@@ -12,23 +12,23 @@ class Board():
         str = ''
         for point in row_values:
             str += f'{point}|'
-        return str    
+        return str
 
-    def print_column_numbers(self):
+    def get_board_name(self):
+        return f'{self.player_name.title()}\'s Guesses'
+
+    def get_column_numbers(self):
         col_num_string = ' '
         for i in range(self.area):
             if i < 10:
                 col_num_string += f'   {i}'
             else:
                 col_num_string += f'  {i}'
-        print(col_num_string)
-
-    def print_board_name(self):
-        print(f'{self.player_name.title()}\'s Guesses')
+        return col_num_string
 
     def render(self):
-        self.print_board_name()
-        self.print_column_numbers()
+        print(self.get_board_name())
+        print(self.get_column_numbers())
         for i, row in enumerate(self.board):
             print(f'{chr(i + 65)} |{self.row_values_to_string(row)}')
 
@@ -38,8 +38,8 @@ class ShipBoard(Board):
         super().__init__(player_name, area)
         self.ships = [Destroyer(), Submarine(), Battleship(), Battleship(), AircraftCarrier()]
 
-    def print_board_name(self):
-        print(f'\t\t{self.player_name.title()}\'s Ships')
+    def get_board_name(self):
+        return f'\t\t{self.player_name.title()}\'s Ships'
 
     def place_ships(self):
         for ship in self.ships:
@@ -64,9 +64,6 @@ class ShipBoard(Board):
             print('Invalid coordinates: Ship must be placed within area of the board')
         elif self.overlaps_other_ships(ship):
             print(f'Invalid coordinates: {ship.name} cannot overlap any other ship.')
-        # elif not self.doesnt_overlap(ship):
-        #     print('Invalid coordinates: Ship cannot overlap coordinates with any other ship')
-
         else:
             ship.has_invalid_coords = False
 
