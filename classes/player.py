@@ -1,5 +1,4 @@
 from .board import Board
-from .ship_board import ShipBoard
 from .ships import Destroyer, Submarine, Battleship, AircraftCarrier
 
 class Player():
@@ -24,8 +23,8 @@ class Player():
         print(f'Welcome {self.name.upper()}.\n')
         
     def initialize_boards(self):
-        self.ship_board = ShipBoard(self.name, 20)
-        self.guess_board = Board(self.name, 20)
+        self.ship_board = Board(f'{self.name.title()}\'s Ships', 20)
+        self.guess_board = Board(f'{self.name.title()}\'s Guesses', 20)
 
     def intialize_ships(self):
         self.ship_board.render()
