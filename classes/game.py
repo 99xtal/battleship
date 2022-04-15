@@ -2,7 +2,8 @@ from .player import Player
 
 class Game():
     def __init__(self):
-        self.players = [Player('Player 1'), Player('Player 2')]
+        self.player1 = None
+        self.player2 = None
 
     def display_intro_text(self):
         print('''
@@ -16,16 +17,32 @@ class Game():
         | )___) )| )   ( |   | |      | |   | (____/\| (____/\/\____) || )   ( |___) (___| )      
         |/ \___/ |/     \|   )_(      )_(   (_______/(_______/\_______)|/     \|\_______/|/ 
 
-                                                 Another terrible text-based game by JOE RYBARCZYK''')
+                                                 Another amazing text-based game by JOE RYBARCZYK''')
     
     def run_player_setup(self):
-        for player in self.players:
-            player.run_setup()
+        self.player1 = Player('Player 1')
+        self.player2 = Player('Player 2')
+
+    def player1_turn(self):
+        target = self.player1.choose_target()
+        result = self.player2.receive_attack(target)
+        self.player1.record_attack(result)
+
+    def player2_turn(self):
+        target = self.player2.choose_target()
+        result = self.player1.receive_attack(target)
+        self.player2.record_attack(result)
 
     def run_game(self):
         self.display_intro_text()
         self.run_player_setup()
 
-
-game = Game()
-game.run_game()
+        while True:
+            self.player1_turn()
+            if not self.player2.has_ships:
+                print(f'{self.player1.name.upper()} WINS!')
+                return False
+            self.player2_turn()
+            if not self.player1.has_ships:
+                print(f'{self.player2.name.upper()} WINS!')
+                return False

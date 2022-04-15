@@ -1,25 +1,20 @@
+from .prompt import CoordinatePrompt
+
 class Ship:
     def __init__(self):
+        self.name = 'Generic Ship'
         self.coordinates = []
         self.length = 3
-        self.has_invalid_coords = True
+        self.is_valid = False
 
-    def str_list_to_coords(self, str_list):
-        return [[ord(str[0]) - 97, int(str[1:])] for str in str_list]
-        
+    def __repr__(self):
+        return f'Ship({self.name}, {self.coordinates})'
+
+    def __len__(self):
+        return self.length
+
     def set_coordinates(self):
-        while(True):
-            usr_inpt = input(f'Please enter ({self.length}) coordinates for your {self.name} (separated by commas)\n>>>').lower()
-            formatted_input = [str.strip() for str in usr_inpt.split(',')]
-
-            try:
-                coordinates = self.str_list_to_coords(formatted_input)
-            except ValueError:
-                print('Invalid input. Please try again.')
-                return True
-            
-            self.coordinates = coordinates
-            return False
+        self.coordinates = CoordinatePrompt(self).get_output()
 
 class Destroyer(Ship):
     def __init__(self):
