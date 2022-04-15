@@ -37,6 +37,12 @@ class Grid():
         
         return f'{board_name}\n{number_axis}\n{points_with_letter_axis}'
 
+    def add_ship(self, ship):
+        for coordinate in ship.coordinates:
+            self.points[coordinate['row']][coordinate['col']] = ship.icon
+        print(self)
+
+
     # def add_ships(self):
     #     print(self.grid)
     #     for ship in self.ships:

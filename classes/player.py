@@ -1,6 +1,6 @@
 from .ships import Destroyer, Submarine, Battleship, AircraftCarrier
 from .grid import Grid
-from .validator import CoordinateValidator
+from .validators import ShipPlacementValidator
 
 
 class Player():
@@ -32,8 +32,9 @@ class Player():
             is_valid = False
             while(not is_valid):
                 ship.set_coordinates()
-                validator = CoordinateValidator(ship, other_ships, self.ship_grid)
+                validator = ShipPlacementValidator(ship, other_ships, self.ship_grid)
                 is_valid = validator.validate()
+            self.ship_grid.add_ship(ship)
 
 
     # def choose_target(self):

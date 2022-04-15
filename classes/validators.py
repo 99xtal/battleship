@@ -1,7 +1,6 @@
 class Validator():
     def __init__(self):
         self.conditions = None
-        self.validated_input = None
 
     def validate(self):
         for condition in self.conditions:
@@ -10,6 +9,26 @@ class Validator():
         return True
 
 class CoordinateValidator(Validator):
+    def __init__(self, coordinate):
+        super().__init__()
+        self.coordinate = coordinate
+        self.conditions = [self.first_character_is_alphabetic(),
+                            self.other_characters_are_numeric()]
+
+    def first_character_is_alphabetic(self):
+        if not self.coordinate[0].isalpha():
+            print("Error: First character of coordinate must be a letter.")
+            return False
+        return True
+
+    def other_characters_are_numeric(self):
+        if not self.coordinate[1:].isnumeric():
+            print("Error: Second character of coordinate must be a number.")
+            return False
+        return True
+
+
+class ShipPlacementValidator(Validator):
     def __init__(self, ship, other_ships, grid):
         super().__init__()
         self.ship = ship
@@ -53,8 +72,6 @@ class CoordinateValidator(Validator):
             print('Error: Ship coordinates must be next to each other.')
             return False
         return True
-
-
 
     def doesnt_overlap_other_ships(self):
         coordinates = self.ship.coordinates

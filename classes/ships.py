@@ -1,4 +1,4 @@
-from .prompt import CoordinatePrompt
+from .prompts import CoordinateSetPrompt
 
 class Ship:
     def __init__(self):
@@ -14,7 +14,8 @@ class Ship:
         return self.length
 
     def set_coordinates(self):
-        self.coordinates = CoordinatePrompt(self).get_output()
+        prompt = CoordinateSetPrompt(f'Please enter ({len(self)}) coordinates for your {self.name} (separated by commas)\n>>>')
+        self.coordinates = prompt.get_output()
 
 class Destroyer(Ship):
     def __init__(self):
