@@ -15,6 +15,7 @@ class Ship:
 
     def set_coordinates(self):
         prompt = CoordinateSetPrompt(f'Please enter ({len(self)}) coordinates for your {self.name} (separated by commas)\n>>>')
+        prompt.prompt()
         self.coordinates = prompt.get_output()
 
 class Destroyer(Ship):

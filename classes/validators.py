@@ -9,24 +9,26 @@ class Validator():
         return True
 
 class CoordinateValidator(Validator):
-    def __init__(self, coordinate):
+    def __init__(self):
         super().__init__()
-        self.coordinate = coordinate
-        self.conditions = [self.first_character_is_alphabetic(),
-                            self.other_characters_are_numeric()]
+        self.coordinate = None
+        self.conditions = [self.first_character_is_alphabetic,
+                            self.other_characters_are_numeric]
 
-    def first_character_is_alphabetic(self):
-        if not self.coordinate[0].isalpha():
+    def first_character_is_alphabetic(self, coordinate):
+        if not coordinate[0].isalpha():
             print("Error: First character of coordinate must be a letter.")
             return False
         return True
 
-    def other_characters_are_numeric(self):
-        if not self.coordinate[1:].isnumeric():
+    def other_characters_are_numeric(self, coordinate):
+        if not coordinate[1:].isnumeric():
             print("Error: Second character of coordinate must be a number.")
             return False
         return True
 
+    def validate(self, coordinate):
+        return all(condition(coordinate) for condition in self.conditions)
 
 class ShipPlacementValidator(Validator):
     def __init__(self, ship, other_ships, grid):
