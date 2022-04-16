@@ -2,11 +2,6 @@ class Validator():
     def __init__(self):
         self.conditions = None
 
-    def validate(self):
-        for condition in self.conditions:
-            if not condition:
-                return False
-        return True
 
 class CoordinateValidator(Validator):
     def __init__(self):
@@ -15,31 +10,39 @@ class CoordinateValidator(Validator):
         self.conditions = [self.first_character_is_alphabetic,
                             self.other_characters_are_numeric]
 
-    def first_character_is_alphabetic(self, coordinate):
-        if not coordinate[0].isalpha():
+    def first_character_is_alphabetic(self):
+        if not self.coordinate[0].isalpha():
             print("Error: First character of coordinate must be a letter.")
             return False
         return True
 
-    def other_characters_are_numeric(self, coordinate):
-        if not coordinate[1:].isnumeric():
+    def other_characters_are_numeric(self):
+        if not self.coordinate[1:].isnumeric():
             print("Error: Second character of coordinate must be a number.")
             return False
         return True
 
     def validate(self, coordinate):
-        return all(condition(coordinate) for condition in self.conditions)
+        self.coordinate = coordinate
+        return all(condition() for condition in self.conditions)
 
 class ShipPlacementValidator(Validator):
-    def __init__(self, ship, other_ships, grid):
+    def __init__(self):
         super().__init__()
+        self.ship = None
+        self.other_ships = None
+        self.grid = None
+        self.conditions = [self.has_valid_num_of_coordinates,
+                            self.is_within_board,
+                            self.has_consecutive_coordinates,
+                            self.doesnt_overlap_other_ships]
+
+    def validate(self, ship, other_ships, grid):
         self.ship = ship
         self.other_ships = other_ships
         self.grid = grid
-        self.conditions = [self.has_valid_num_of_coordinates(),
-                            self.is_within_board(),
-                            self.has_consecutive_coordinates(),
-                            self.doesnt_overlap_other_ships()]
+
+        return all(condition() for condition in self.conditions)
 
     def has_valid_num_of_coordinates(self):
         if not len(self.ship.coordinates) == len(self.ship):

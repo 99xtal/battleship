@@ -1,14 +1,16 @@
 from .ships import Destroyer, Submarine, Battleship, AircraftCarrier
 from .grid import Grid
+from .prompts import CoordinatePrompt
 from .validators import ShipPlacementValidator
 
 
 class Player():
-    def __init__(self, name):
+    def __init__(self, name, rules):
         self.name = name
         self.ships = [Destroyer(), Submarine(), Battleship(), Battleship(), AircraftCarrier()]
         self.ship_grid = None
         self.guess_grid = None
+        self.rules = rules
 
         self.set_name()
         self.create_boards()
@@ -27,18 +29,21 @@ class Player():
         self.guess_grid = Grid(f'{self.name.title()}\'s Guesses', 20, 20)
 
     def place_ships(self):
+        validator = ShipPlacementValidator()
         for ship in self.ships:
             other_ships = [_ for _ in self.ships if _ != ship]
             is_valid = False
             while(not is_valid):
                 ship.set_coordinates()
-                validator = ShipPlacementValidator(ship, other_ships, self.ship_grid)
-                is_valid = validator.validate()
+                is_valid = validator.validate(ship, other_ships, self.ship_grid)
             self.ship_grid.add_ship(ship)
 
+    def choose_target(self):
+        print(self.guess_grid)
+        prompt = CoordinatePrompt(f"{self.name.upper()}: Please enter a coordinate for your attack.")
+        prompt.prompt()
+        return prompt.get_output()
 
-    # def choose_target(self):
-    #     pass
 
     # def receive_attack(self):
     #     pass

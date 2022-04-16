@@ -1,22 +1,22 @@
 from .axis import CharAxis, NumAxis
 
 class Grid():
-    def __init__(self, board_name, length, width):
+    def __init__(self, board_name, width, height):
         self.board_name = board_name
-        self.length = length
-        self.width = width
-        self.letter_axis = CharAxis(0, length)
+        self.width = width      # x-axis
+        self.height = height    # y-axis
+        self.letter_axis = CharAxis(0, height)
         self.number_axis = NumAxis(0, width)
-        self.points = [['   ' for _ in range(width)] for _ in range(length)]
+        self.points = [['   ' for _ in range(width)] for _ in range(height)]
 
     def __repr__(self):
-        return f'Grid({self.board_name}, length={self.length}, width = {self.width})'
+        return f'Grid({self.board_name}, length={self.height}, width = {self.width})'
 
     def __str__(self):
         return self.assemble_grid()
 
     def center(self, str):
-        board_length = 4*self.length + 3
+        board_length = 4*self.height + 3
         indent = int(board_length/2 - len(str)/2)
         return ' ' * indent + str
 
