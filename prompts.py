@@ -1,4 +1,4 @@
-from .validators import CoordinateValidator
+from validators import CoordinateValidator
 
 class Prompt:
     def __init__(self, message):

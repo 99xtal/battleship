@@ -51,12 +51,12 @@ class ShipPlacementValidator(Validator):
         return True
 
     def is_within_board(self):
-        length = self.grid.length
         width = self.grid.width
+        height = self.grid.height
         coordinates = self.ship.coordinates
 
-        if not all(coord['row'] in range(length) and
-                    coord['col'] in range(width) for coord in coordinates):
+        if not all(coord['row'] in range(width) and
+                    coord['col'] in range(height) for coord in coordinates):
             print('Error: Ship coordinates must be within space of board.')
             return False
         return True

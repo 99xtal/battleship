@@ -1,16 +1,15 @@
-from .ships import Destroyer, Submarine, Battleship, AircraftCarrier
-from .grid import Grid
-from .prompts import CoordinatePrompt
-from .validators import ShipPlacementValidator
+from ships import Destroyer, Submarine, Battleship, AircraftCarrier
+from grid import Grid
+from prompts import CoordinatePrompt
+from validators import ShipPlacementValidator
 
 
 class Player():
-    def __init__(self, name, rules):
+    def __init__(self, name):
         self.name = name
         self.ships = [Destroyer(), Submarine(), Battleship(), Battleship(), AircraftCarrier()]
         self.ship_grid = None
         self.guess_grid = None
-        self.rules = rules
 
         self.set_name()
         self.create_boards()

@@ -1,4 +1,4 @@
-from .prompts import CoordinateSetPrompt
+from prompts import CoordinateSetPrompt
 
 class Ship:
     def __init__(self):

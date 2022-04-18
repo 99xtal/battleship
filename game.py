@@ -1,4 +1,4 @@
-from .player import Player
+from player import Player
 
 class Game():
     def __init__(self):
@@ -37,6 +37,7 @@ class Game():
         self.display_intro_text()
         self.run_player_setup()
 
+    
         while True:
             self.player1_turn()
             if not self.player2.has_ships:
