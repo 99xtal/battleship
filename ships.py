@@ -1,47 +1,54 @@
 from prompts import CoordinateSetPrompt
 
+
 class Ship:
-    def __init__(self):
-        self.name = 'Generic Ship'
-        self.coordinates = []
+    def __init__(self, coordinates = []):
+        self.name = "Generic Ship"
+        self.coordinates = coordinates
         self.length = 3
         self.is_valid = False
 
     def __repr__(self):
-        return f'Ship({self.name}, {self.coordinates})'
+        return f"Ship({self.name}, {self.coordinates})"
 
     def __len__(self):
         return self.length
 
     def set_coordinates(self):
-        prompt = CoordinateSetPrompt(f'Please enter ({len(self)}) coordinates for your {self.name} (separated by commas)\n>>>')
+        prompt = CoordinateSetPrompt(
+            f"Please enter ({len(self)}) coordinates for your {self.name} (separated by commas)\n>>>"
+        )
         prompt.prompt()
-        self.coordinates = prompt.get_output()
+        self.coordinates = prompt.output
+
 
 class Destroyer(Ship):
     def __init__(self):
         super().__init__()
-        self.name = 'Destroyer'
+        self.name = "Destroyer"
         self.length = 2
-        self.icon = '/ /'
+        self.icon = "/ /"
+
 
 class Submarine(Ship):
     def __init__(self):
         super().__init__()
-        self.name = 'Submarine'
+        self.name = "Submarine"
         self.length = 3
-        self.icon = '( )'
+        self.icon = "( )"
+
 
 class Battleship(Ship):
     def __init__(self):
         super().__init__()
-        self.name = 'Battleship'
+        self.name = "Battleship"
         self.length = 4
-        self.icon = '{ }'
+        self.icon = "{ }"
+
 
 class AircraftCarrier(Ship):
     def __init__(self):
         super().__init__()
-        self.name = 'Aircraft Carrier'
+        self.name = "Aircraft Carrier"
         self.length = 5
-        self.icon = '[ ]'
+        self.icon = "[ ]"
