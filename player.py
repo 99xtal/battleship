@@ -16,6 +16,7 @@ class Player:
         ]
         self.ship_grid = Grid(f"{self.name}'s Ships", 20, 20)
         self.guess_grid = Grid(f"{self.name}'s Guesses", 20, 20)
+        self.guess_history = []
 
         self._place_ships()
 
@@ -44,24 +45,32 @@ class Player:
         """Choose a target coordinate for outgoing attack"""
         print(self.ship_grid)
         print(self.guess_grid)
+
         prompt = CoordinatePrompt(
             f"{self.name.upper()}: Please enter a coordinate for your attack."
         )
-        prompt.prompt()
-        return prompt.output
+        while True:
+            attack_coordinate = prompt.prompt()
+            if attack_coordinate not in self.guess_history:
+                self.guess_history.append(attack_coordinate)
+                break
+            else:
+                print("You have already attacked there.")
+        return attack_coordinate
 
     def receive_attack(self, coordinate):
         """Evaluate incoming attack as hit or miss on ship board"""
-        all_ship_coordinates = []
-        [all_ship_coordinates.extend(ship.coordinates) for ship in self.ships]
-        if coordinate in all_ship_coordinates:
-            self.ship_grid.mark(coordinate, "hit")
-            print("Hit!")
-            return "hit"
-        else:
-            self.ship_grid.mark(coordinate, "miss")
-            print("Miss!")
-            return "miss"
+        for ship in self.ships:
+            if coordinate in ship.coordinates:
+                ship.hits += 1
+                if ship.hits == len(ship):
+                    ship.sunk = True
+                self.ship_grid.mark(coordinate, "hit")
+                print("Hit!")
+                return "hit"
+        self.ship_grid.mark(coordinate, "miss")
+        print("Miss!")
+        return "miss"
 
     def record_attack(self, target, attack_result):
         """Evaluate outgoing attack as hit or miss on guess board"""

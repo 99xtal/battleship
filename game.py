@@ -41,10 +41,10 @@ class Game:
         # Game loop
         while True:
             self.player1_turn()
-            # if not self.player2.has_ships:
-            #     print(f'{self.player1.name.upper()} WINS!')
-            #     return False
+            if all(ship.sunk for ship in self.player2.ships):
+                print(f'{self.player1.name.upper()} WINS!')
+                return False
             self.player2_turn()
-            # if not self.player1.has_ships:
-            #     print(f'{self.player2.name.upper()} WINS!')
-            #     return False
+            if all(ship.sunk for ship in self.player1.ships):
+                print(f'{self.player2.name.upper()} WINS!')
+                return False

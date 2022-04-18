@@ -45,6 +45,7 @@ class CoordinatePrompt(Prompt):
     def prompt(self):
         valid_input = self.get_valid_input()
         self.output = self.generate_coordinate(valid_input)
+        return self.output
 
     def generate_coordinate(self, coordinate_str):
         """Format raw coordinate string (ex. "a0") into grid readable coordinate (ex. [0,0])"""

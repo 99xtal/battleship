@@ -40,6 +40,7 @@ class Grid:
         print(self)
 
     def mark(self, coordinate:list, type:str):
+        """Insert attack marker (hit or miss) at center of grid point"""
         target_point = list(self.points[coordinate[0]][coordinate[1]])
         if type == "hit":
             target_point[1] = "X"

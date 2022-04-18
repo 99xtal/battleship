@@ -6,6 +6,8 @@ class Ship:
         self.name = "Generic Ship"
         self.coordinates = None
         self.length = 3
+        self.hits = 0
+        self.sunk = False
         self.is_valid = False
 
     def __repr__(self):
