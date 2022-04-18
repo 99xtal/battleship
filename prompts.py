@@ -3,7 +3,7 @@ from validators import CoordinateValidator
 
 class Prompt:
     def __init__(self, message):
-        self.input_message = message
+        self.input_message = f'{message}\n>>>'
         self.input = None
         self.output = None
         self.validator = None
@@ -48,7 +48,7 @@ class CoordinatePrompt(Prompt):
 
     def generate_coordinate(self, coordinate_str):
         """Format raw coordinate string (ex. "a0") into grid readable coordinate (ex. [0,0])"""
-        return [ord(coordinate_str[0]) - 97, int(coordinate_str[1:])]
+        return [ord(coordinate_str[0][0]) - 97, int(coordinate_str[0][1:])]
 
 
 class CoordinateSetPrompt(CoordinatePrompt):

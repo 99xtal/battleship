@@ -56,7 +56,7 @@ class ShipPlacementValidator(Validator):
         return True
 
     def is_within_board(self):
-        '''Check that row coordinate is within grid height, and column is within grid width'''
+        """Check that row coordinate is within grid height, and column is within grid width"""
         width = self.grid.width
         height = self.grid.height
         coordinates = self.ship.coordinates
@@ -70,14 +70,14 @@ class ShipPlacementValidator(Validator):
         return True
 
     def check_consecutive_coords(self, coordinates, axis):
-        '''Check that all coordinates on a specified axis are consecutive'''
+        """Check that all coordinates on a specified axis are consecutive"""
         for i in range(1, len(coordinates)):
             if coordinates[i][axis] != coordinates[i - 1][axis] + 1:
                 return False
         return True
 
     def has_consecutive_coordinates(self):
-        '''Check that coordinates are aligned on row or column'''
+        """Check that coordinates are aligned on row or column"""
         coordinates = self.ship.coordinates
 
         has_consecutive_rows = self.check_consecutive_coords(coordinates, 0)

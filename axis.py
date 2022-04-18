@@ -1,5 +1,7 @@
 class Axis:
-    def __init__(self, start:int, end:int):
+    """Axis with numerical markers"""
+
+    def __init__(self, start: int, end: int):
         self.numbers = range(start, end)
         self.markers = [str(_) for _ in self.numbers]
 
@@ -11,6 +13,8 @@ class Axis:
 
 
 class NumAxis(Axis):
+    """Axis with numerical markers, spaced to fit grid"""
+
     def __init__(self, start, end):
         super().__init__(start, end)
 
@@ -26,6 +30,8 @@ class NumAxis(Axis):
 
 
 class CharAxis(Axis):
+    """Axis with alphabetic markers"""
+
     def __init__(self, start, end):
         super().__init__(start, end)
         self.markers = [chr(_ + 65) for _ in self.numbers]

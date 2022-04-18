@@ -38,3 +38,11 @@ class Grid:
         for coordinate in ship.coordinates:
             self.points[coordinate[0]][coordinate[1]] = ship.icon
         print(self)
+
+    def mark(self, coordinate:list, type:str):
+        target_point = list(self.points[coordinate[0]][coordinate[1]])
+        if type == "hit":
+            target_point[1] = "X"
+        elif type == "miss":
+            target_point[1] = "O"
+        self.points[coordinate[0]][coordinate[1]] = ''.join(target_point)

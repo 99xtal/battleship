@@ -2,14 +2,14 @@ from prompts import CoordinateSetPrompt
 
 
 class Ship:
-    def __init__(self, coordinates = []):
+    def __init__(self):
         self.name = "Generic Ship"
-        self.coordinates = coordinates
+        self.coordinates = None
         self.length = 3
         self.is_valid = False
 
     def __repr__(self):
-        return f"Ship({self.name}, {self.coordinates})"
+        return f"Ship(Name:{self.name}, Coordinates:{self.coordinates})"
 
     def __len__(self):
         return self.length
@@ -20,6 +20,9 @@ class Ship:
         )
         prompt.prompt()
         self.coordinates = prompt.output
+
+    def set_manually(self, *args):
+        self.coordinates = [*args]
 
 
 class Destroyer(Ship):

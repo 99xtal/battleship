@@ -41,7 +41,8 @@ class Player:
             self.ship_grid.add_ship(ship)
 
     def choose_target(self):
-        """Choose a coordinate on opponent's ship grid to send an attack"""
+        """Choose a target coordinate for outgoing attack"""
+        print(self.ship_grid)
         print(self.guess_grid)
         prompt = CoordinatePrompt(
             f"{self.name.upper()}: Please enter a coordinate for your attack."
@@ -49,9 +50,33 @@ class Player:
         prompt.prompt()
         return prompt.output
 
-    # def receive_attack(self):
-    #     pass
+    def receive_attack(self, coordinate):
+        """Evaluate incoming attack as hit or miss on ship board"""
+        all_ship_coordinates = []
+        [all_ship_coordinates.extend(ship.coordinates) for ship in self.ships]
+        if coordinate in all_ship_coordinates:
+            self.ship_grid.mark(coordinate, "hit")
+            print("Hit!")
+            return "hit"
+        else:
+            self.ship_grid.mark(coordinate, "miss")
+            print("Miss!")
+            return "miss"
 
-    # def record_attack(self):
-    #     pass
+    def record_attack(self, target, attack_result):
+        """Evaluate outgoing attack as hit or miss on guess board"""
+        self.guess_grid.mark(target, attack_result)
 
+class TestPlayer(Player):
+    def __init__(self, default_name):
+        super().__init__(default_name)
+
+    def _place_ships(self):
+        self.ships[0].set_manually([0,0],[0,1])
+        self.ships[1].set_manually([1,0],[1,1],[1,2])
+        self.ships[2].set_manually([2,0],[2,1],[2,2],[2,3])
+        self.ships[3].set_manually([3,0],[3,1],[3,2],[3,3])
+        self.ships[4].set_manually([4,0],[4,1],[4,2],[4,3],[4,4])
+
+        for ship in self.ships:
+            self.ship_grid.add_ship(ship)
