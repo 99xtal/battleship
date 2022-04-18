@@ -78,7 +78,7 @@ class ShipPlacementValidator(Validator):
 
     def has_consecutive_coordinates(self):
         """Check that coordinates are aligned on row or column"""
-        coordinates = self.ship.coordinates
+        coordinates = sorted(self.ship.coordinates)
 
         has_consecutive_rows = self.check_consecutive_coords(coordinates, 0)
         has_consecutive_cols = self.check_consecutive_coords(coordinates, 1)

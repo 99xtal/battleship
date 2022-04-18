@@ -1,7 +1,20 @@
+"""Contains all Axis objects"""
+
+
 class Axis:
-    """Axis with numerical markers"""
+    """Base class for representing grid axis"""
 
     def __init__(self, start: int, end: int):
+        """
+        Constructs necessary attributes for axis object
+
+        Attributes
+        ----------
+        start : int
+            axis starting point
+        end : int
+            axis ending point
+        """
         self.numbers = range(start, end)
         self.markers = [str(_) for _ in self.numbers]
 
@@ -14,9 +27,6 @@ class Axis:
 
 class NumAxis(Axis):
     """Axis with numerical markers, spaced to fit grid"""
-
-    def __init__(self, start, end):
-        super().__init__(start, end)
 
     def __str__(self):
         """Reduce space between double-digit numbers to preserve even spacing throughout"""

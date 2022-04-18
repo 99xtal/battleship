@@ -2,12 +2,12 @@ from axis import CharAxis, NumAxis
 
 
 class Grid:
-    def __init__(self, board_name, width, height):
+    def __init__(self, width, height):
         self.width = width  # x-axis
         self.height = height  # y-axis
         self.y_axis = CharAxis(0, height)
         self.x_axis = NumAxis(0, width)
-        self.board_name = self.center(board_name)
+        self.board_name = None
         self.points = [["   " for _ in range(width)] for _ in range(height)]
 
     def __repr__(self):
@@ -39,11 +39,11 @@ class Grid:
             self.points[coordinate[0]][coordinate[1]] = ship.icon
         print(self)
 
-    def mark(self, coordinate:list, type:str):
+    def mark(self, coordinate: list, type: str):
         """Insert attack marker (hit or miss) at center of grid point"""
         target_point = list(self.points[coordinate[0]][coordinate[1]])
         if type == "hit":
             target_point[1] = "X"
         elif type == "miss":
             target_point[1] = "O"
-        self.points[coordinate[0]][coordinate[1]] = ''.join(target_point)
+        self.points[coordinate[0]][coordinate[1]] = "".join(target_point)

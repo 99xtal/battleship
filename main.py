@@ -1,8 +1,8 @@
-from game import Game
+from games import Battleship
 
 
 def main():
-    Game().run_game()
+    Battleship().run_game()
 
 
 if __name__ == "__main__":
